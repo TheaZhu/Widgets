@@ -162,21 +162,21 @@ public class BottomTabLayout extends HorizontalScrollView {
         mTabStrip.setTabIndicatorPosition(typedArray.getInt(
                 R.styleable.BottomTabLayout_tabIndicatorPosition, 0));
         mTabStrip.setSelectedIndicatorHeight(
-                typedArray.getDimensionPixelSize(R.styleable.BottomTabLayout_tabIndicatorHeight, 0));
-        mTabStrip.setSelectedIndicatorColor(typedArray.getColor(R.styleable.BottomTabLayout_tabIndicatorColor, 0));
+                typedArray.getDimensionPixelSize(R.styleable.BottomTabLayout_bTabIndicatorHeight, 0));
+        mTabStrip.setSelectedIndicatorColor(typedArray.getColor(R.styleable.BottomTabLayout_bTabIndicatorColor, 0));
 
         mTabPaddingStart = mTabPaddingTop = mTabPaddingEnd = mTabPaddingBottom =
-                typedArray.getDimensionPixelSize(R.styleable.BottomTabLayout_tabPadding, 0);
+                typedArray.getDimensionPixelSize(R.styleable.BottomTabLayout_bTabPadding, 0);
         mTabPaddingStart = typedArray.getDimensionPixelSize(
-                R.styleable.BottomTabLayout_tabPaddingStart, mTabPaddingStart);
+                R.styleable.BottomTabLayout_bTabPaddingStart, mTabPaddingStart);
         mTabPaddingTop = typedArray.getDimensionPixelSize(
-                R.styleable.BottomTabLayout_tabPaddingTop, mTabPaddingTop);
+                R.styleable.BottomTabLayout_bTabPaddingTop, mTabPaddingTop);
         mTabPaddingEnd = typedArray.getDimensionPixelSize(
-                R.styleable.BottomTabLayout_tabPaddingEnd, mTabPaddingEnd);
+                R.styleable.BottomTabLayout_bTabPaddingEnd, mTabPaddingEnd);
         mTabPaddingBottom = typedArray.getDimensionPixelSize(
-                R.styleable.BottomTabLayout_tabPaddingBottom, mTabPaddingBottom);
+                R.styleable.BottomTabLayout_bTabPaddingBottom, mTabPaddingBottom);
 
-        mTabTextAppearance = typedArray.getResourceId(R.styleable.BottomTabLayout_tabTextAppearance,
+        mTabTextAppearance = typedArray.getResourceId(R.styleable.BottomTabLayout_bTabTextAppearance,
                 R.style.TextAppearance_Tab);
 
         // Text colors/sizes come from the text appearance first
@@ -189,26 +189,26 @@ public class BottomTabLayout extends HorizontalScrollView {
             ta.recycle();
         }
 
-        if (typedArray.hasValue(R.styleable.BottomTabLayout_tabTextColor))
-            mTabTextColors = typedArray.getColorStateList(R.styleable.BottomTabLayout_tabTextColor);
+        if (typedArray.hasValue(R.styleable.BottomTabLayout_bTabTextColor))
+            mTabTextColors = typedArray.getColorStateList(R.styleable.BottomTabLayout_bTabTextColor);
 
-        if (typedArray.hasValue(R.styleable.BottomTabLayout_tabSelectedTextColor)) {
+        if (typedArray.hasValue(R.styleable.BottomTabLayout_bTabSelectedTextColor)) {
             final int selected = typedArray.getColor(
-                    R.styleable.BottomTabLayout_tabSelectedTextColor, 0);
+                    R.styleable.BottomTabLayout_bTabSelectedTextColor, 0);
             mTabTextColors = createColorStateList(mTabTextColors.getDefaultColor(), selected);
         }
 
         mRequestedTabMinWidth = typedArray.getDimensionPixelSize(
-                R.styleable.BottomTabLayout_tabMinWidth, INVALID_WIDTH);
+                R.styleable.BottomTabLayout_bTabMinWidth, INVALID_WIDTH);
         mRequestedTabMaxWidth = typedArray.getDimensionPixelSize(
-                R.styleable.BottomTabLayout_tabMaxWidth, INVALID_WIDTH);
+                R.styleable.BottomTabLayout_bTabMaxWidth, INVALID_WIDTH);
 
         mTabBackgroundResId = typedArray.getResourceId(
-                R.styleable.BottomTabLayout_tabBackground, 0);
+                R.styleable.BottomTabLayout_bTabBackground, 0);
         mContentInsetStart = typedArray.getDimensionPixelSize(
-                R.styleable.BottomTabLayout_tabContentStart, 0);
-        mMode = typedArray.getInt(R.styleable.BottomTabLayout_tabMode, MODE_FIXED);
-        mTabGravity = typedArray.getInt(R.styleable.BottomTabLayout_tabGravity, GRAVITY_FILL);
+                R.styleable.BottomTabLayout_bTabContentStart, 0);
+        mMode = typedArray.getInt(R.styleable.BottomTabLayout_bTabMode, MODE_FIXED);
+        mTabGravity = typedArray.getInt(R.styleable.BottomTabLayout_bTabGravity, GRAVITY_FILL);
 
         typedArray.recycle();
 
@@ -326,6 +326,8 @@ public class BottomTabLayout extends HorizontalScrollView {
      * and another tab will be selected if present.
      *
      * @param tab The tab to remove
+     *
+     * @return Tab
      */
     public TabView.Tab removeTab(TabView.Tab tab) {
         return removeTabAt(tab.getPosition());
@@ -336,6 +338,8 @@ public class BottomTabLayout extends HorizontalScrollView {
      * and another tab will be selected if present.
      *
      * @param position Position of the tab to remove
+     *
+     * @return Tab
      */
     public TabView.Tab removeTabAt(int position) {
         final int selectedTabPosition = mSelectedTab != null ? mSelectedTab.getPosition() : 0;
@@ -426,7 +430,6 @@ public class BottomTabLayout extends HorizontalScrollView {
     /**
      * The one-stop shop for setting up this {@link BottomTabLayout} with a {@link ViewPager}.
      *
-     * <p>This method will:
      * <ul>
      *     <li>Add a {@link ViewPager.OnPageChangeListener} that will forward events to
      *     this TabLayout.</li>
@@ -434,7 +437,9 @@ public class BottomTabLayout extends HorizontalScrollView {
      *     <li>Set our {@link OnTabSelectedListener} which will forward
      *     selected events to the ViewPager</li>
      * </ul>
-     * </p>
+     *
+     * @param tabs The tabs
+     * @param viewPager The viewPager
      *
      * @see TabLayoutOnPageChangeListener
      * @see ViewPagerOnTabSelectedListener

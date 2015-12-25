@@ -6,28 +6,28 @@
             <enum name="top" value="0"/>
             <enum name="bottom" value="1"/>
         </attr>
-        <attr format="color" name="tabIndicatorColor"/>
-        <attr format="dimension" name="tabIndicatorHeight"/>
-        <attr format="dimension" name="tabContentStart"/>
-        <attr format="reference" name="tabBackground"/>
-        <attr name="tabMode">
+        <attr format="color" name="bTabIndicatorColor"/>
+        <attr format="dimension" name="bTabIndicatorHeight"/>
+        <attr format="dimension" name="bTabContentStart"/>
+        <attr format="reference" name="bTabBackground"/>
+        <attr name="bTabMode">
             <enum name="scrollable" value="0"/>
             <enum name="fixed" value="1"/>
         </attr>
-        <attr name="tabGravity">
+        <attr name="bTabGravity">
             <enum name="fill" value="0"/>
             <enum name="center" value="1"/>
         </attr>
-        <attr format="dimension" name="tabMinWidth"/>
-        <attr format="dimension" name="tabMaxWidth"/>
-        <attr format="reference" name="tabTextAppearance"/>
-        <attr format="color" name="tabTextColor"/>
-        <attr format="color" name="tabSelectedTextColor"/>
-        <attr format="dimension" name="tabPaddingStart"/>
-        <attr format="dimension" name="tabPaddingTop"/>
-        <attr format="dimension" name="tabPaddingEnd"/>
-        <attr format="dimension" name="tabPaddingBottom"/>
-        <attr format="dimension" name="tabPadding"/>
+        <attr format="dimension" name="bTabMinWidth"/>
+        <attr format="dimension" name="bTabMaxWidth"/>
+        <attr format="reference" name="bTabTextAppearance"/>
+        <attr format="color" name="bTabTextColor"/>
+        <attr format="color" name="bTabSelectedTextColor"/>
+        <attr format="dimension" name="bTabPaddingStart"/>
+        <attr format="dimension" name="bTabPaddingTop"/>
+        <attr format="dimension" name="bTabPaddingEnd"/>
+        <attr format="dimension" name="bTabPaddingBottom"/>
+        <attr format="dimension" name="bTabPadding"/>
     </declare-styleable>
 
     <dimen name="tab_max_width">264dp</dimen>
@@ -41,17 +41,19 @@
         <item name="textAllCaps">true</item>
     </style>
     <style name="Base.Widget.BottomTabLayout" parent="android:Widget">
-        <item name="tabMaxWidth">@dimen/tab_max_width</item>
-        <item name="tabIndicatorColor">?attr/colorAccent</item>
-        <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabPaddingStart">12dp</item>
-        <item name="tabPaddingEnd">12dp</item>
-        <item name="tabBackground">?attr/selectableItemBackground</item>
-        <item name="tabTextAppearance">@style/TextAppearance.Tab</item>
-        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+        <item name="showTabIndicator">true</item>
+        <item name="tabIndicatorPosition">top</item>
+        <item name="bTabMaxWidth">@dimen/tab_max_width</item>
+        <item name="bTabIndicatorColor">?attr/colorAccent</item>
+        <item name="bTabIndicatorHeight">2dp</item>
+        <item name="bTabPaddingStart">12dp</item>
+        <item name="bTabPaddingEnd">12dp</item>
+        <item name="bTabBackground">?attr/selectableItemBackground</item>
+        <item name="bTabTextAppearance">@style/TextAppearance.Tab</item>
+        <item name="bTabSelectedTextColor">?android:textColorPrimary</item>
     </style>
     <style name="Widget.BottomTabLayout" parent="Base.Widget.BottomTabLayout">
-        <item name="tabGravity">fill</item>
-        <item name="tabMode">fixed</item>
+        <item name="bTabGravity">fill</item>
+        <item name="bTabMode">fixed</item>
     </style>
 </resources>
