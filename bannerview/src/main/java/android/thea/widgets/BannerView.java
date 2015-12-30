@@ -7,6 +7,8 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
@@ -31,12 +33,18 @@ import java.util.List;
 public class BannerView extends FrameLayout {
     private static final String TAG = BannerView.class.getSimpleName();
     public static final int MARK_CENTER = Gravity.CENTER_HORIZONTAL;
+    public static final int UPDATE_INTERVAL = 3000;
+    public static final int MSG_PAGE_UPDATE = 22;
+    public static final int MSG_CANCEL_UPDATE = 23;
 
     private ViewPager mViewPager;
     private PagerMarkStrip mMarkStrip;
     private final PageListener mPageListener = new PageListener();
 
     private int mLastKnownCurrentPage = -1;
+
+    private boolean mEnableCycle;
+    private boolean mEnableAutoSwitch;
 
     private int mMarkGravity;
 
@@ -52,6 +60,13 @@ public class BannerView extends FrameLayout {
     private ColorStateList mTitleTextColors;
     private float mTitleTextSize;
 
+    private Handler mHandler = new AutoSwitchHandler();
+    private Runnable mSwitchRunnable = new Runnable() {
+        @Override
+        public void run() {
+        }
+    };
+
     public BannerView(Context context) {
         this(context, null);
     }
@@ -65,6 +80,9 @@ public class BannerView extends FrameLayout {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BannerView,
                 defStyleAttr, R.style.Widget_BannerView);
+
+        mEnableCycle = typedArray.getBoolean(R.styleable.BannerView_enableCycle, false);
+        mEnableAutoSwitch = typedArray.getBoolean(R.styleable.BannerView_enableAutoSwitch, true);
 
         mMarkGravity = typedArray.getInt(R.styleable.BannerView_markGravity, MARK_CENTER);
         mSelectIcon = typedArray.getDrawable(R.styleable.BannerView_selectIcon);
@@ -87,7 +105,10 @@ public class BannerView extends FrameLayout {
 
         typedArray.recycle();
 
-        mViewPager = new ViewPager(context);
+        if (mEnableCycle)
+            mViewPager = new CycleViewPager(context);
+        else
+            mViewPager = new ViewPager(context);
         mViewPager.addOnPageChangeListener(mPageListener);
         addView(mViewPager, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -104,10 +125,7 @@ public class BannerView extends FrameLayout {
     public void setAdapter(PagerAdapter adapter) {
         adapter.registerDataSetObserver(mPageListener);
         mMarkStrip.initTitleView();
-        if (adapter instanceof CyclePagerAdapter)
-            mMarkStrip.initIcons(adapter.getCount() - 2);
-        else
-            mMarkStrip.initIcons(adapter.getCount());
+        mMarkStrip.initIcons(adapter.getCount());
         mViewPager.setAdapter(adapter);
         updateMark(0);
     }
@@ -117,9 +135,12 @@ public class BannerView extends FrameLayout {
     }
 
     public void updateMark(int currentItem) {
-        PagerAdapter adapter = mViewPager.getAdapter();
-        if (adapter instanceof CyclePagerAdapter)
-            currentItem = ((CyclePagerAdapter) adapter).getItemPosition(currentItem);
+        if (mEnableAutoSwitch) {
+            if (mHandler.hasMessages(MSG_PAGE_UPDATE))
+                mHandler.removeMessages(MSG_PAGE_UPDATE);
+            mHandler.sendEmptyMessageDelayed(MSG_PAGE_UPDATE, UPDATE_INTERVAL);
+        }
+
         mMarkStrip.update(currentItem, mViewPager.getAdapter());
         mLastKnownCurrentPage = currentItem;
     }
@@ -179,16 +200,22 @@ public class BannerView extends FrameLayout {
             }
 
             for (int i = 0; i < count; i++) {
-                final int position = i;
                 ImageView iv = (ImageView) LayoutInflater.from(getContext())
                         .inflate(R.layout.layout_mark_icon, mLayout, false);
                 iv.setImageDrawable(mNormalIcon);
-                iv.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mViewPager.setCurrentItem(position, true);
-                    }
-                });
+                if (!mEnableAutoSwitch) {
+                    final int position;
+                    if (mEnableCycle)
+                        position = i + 1;
+                    else
+                        position = i;
+                    iv.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mViewPager.setCurrentItem(position, true);
+                        }
+                    });
+                }
                 ViewCompat.setPaddingRelative(iv, mIconPaddingStart, mIconPaddingTop,
                         mIconPaddingEnd, mIconPaddingBottom);
                 mIcons.add(iv);
@@ -203,7 +230,7 @@ public class BannerView extends FrameLayout {
         public void update(int position, PagerAdapter adapter) {
             if (position >= 0 && adapter != null && position != mLastKnownCurrentPage) {
                 if (mShowTitle)
-                    mTitleView.setText(adapter.getPageTitle(position));
+                    mTitleView.setText(adapter.getPageTitle(mViewPager.getCurrentItem()));
                 if (mLastKnownCurrentPage >= 0 && mLastKnownCurrentPage < mIcons.size())
                     mIcons.get(mLastKnownCurrentPage).setImageDrawable(mNormalIcon);
                 mIcons.get(position).setImageDrawable(mSelectIcon);
@@ -212,7 +239,6 @@ public class BannerView extends FrameLayout {
     }
 
     private class PageListener extends DataSetObserver implements ViewPager.OnPageChangeListener {
-        private int mScrollState;
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -220,19 +246,39 @@ public class BannerView extends FrameLayout {
 
         @Override
         public void onPageSelected(int position) {
-            if (mScrollState == ViewPager.SCROLL_STATE_SETTLING) {
-                updateMark(mViewPager.getCurrentItem());
-            }
+            int currentItem = mViewPager.getCurrentItem();
+            if (mEnableCycle)
+                currentItem = ((CycleViewPager) mViewPager).convertPosition(currentItem);
+            updateMark(currentItem);
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-            mScrollState = state;
         }
 
         @Override
         public void onChanged() {
-            updateMark(mViewPager.getCurrentItem());
+            int currentItem = mViewPager.getCurrentItem();
+            if (mEnableCycle)
+                currentItem = ((CycleViewPager) mViewPager).convertPosition(currentItem);
+            updateMark(currentItem);
+        }
+    }
+
+    private class AutoSwitchHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_PAGE_UPDATE:
+                    int cur = mViewPager.getCurrentItem();
+                    mViewPager.setCurrentItem(cur + 1, true);
+                    break;
+                case MSG_CANCEL_UPDATE:
+                    mHandler.removeMessages(MSG_CANCEL_UPDATE);
+                    break;
+            }
+            super.handleMessage(msg);
         }
     }
 }

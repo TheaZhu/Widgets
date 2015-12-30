@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="BannerView">
+        <attr name="enableCycle" format="boolean"/>
+        <attr name="enableAutoSwitch" format="boolean"/>
         <attr name="markGravity" format="enum">
             <enum name="start" value="0x03"/>
             <enum name="center" value="0x01"/>
