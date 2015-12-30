@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.thea.widgets.MainActivity">
 
-    <android.thea.widgets.BannerView
+    <!--<android.thea.widgets.BannerView
         android:id="@+id/bv"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="#B3E5FC"
         app:showPageTitle="true"
         app:enableCycle="true"
-        app:enableAutoSwitch="true"/>
+        app:enableAutoSwitch="true"/>-->
 
     <!--<android.support.v4.view.ViewPager
         android:id="@+id/bv"

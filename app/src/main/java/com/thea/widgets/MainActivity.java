@@ -3,8 +3,6 @@ package com.thea.widgets;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.thea.widgets.BannerView;
-import android.thea.widgets.ViewPagerAdapter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 //    private static final String TAG = MainActivity.class.getSimpleName();
-    private BannerView bv;
+//    private BannerView bv;
 //    private ViewPager bv;
     private ArrayList<View> mItems = new ArrayList<>();
 
@@ -27,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bv = (BannerView) findViewById(R.id.bv);
-        for (int i = 0; i < 3; i++) {
-            mItems.add(getLayoutInflater().inflate(R.layout.pager_layout, null));
-        }
-        bv.setAdapter(mViewAdapter);
+//        bv = (BannerView) findViewById(R.id.bv);
+//        for (int i = 0; i < 3; i++) {
+//            mItems.add(getLayoutInflater().inflate(R.layout.pager_layout, null));
+//        }
+//        bv.setAdapter(mViewAdapter);
 //        bv.setCurrentItem(1);
 
 //        bv.setAdapter(new MyAdapter(mItems));
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    private ViewPagerAdapter mViewAdapter = new ViewPagerAdapter(mItems) {
+    /*private ViewPagerAdapter mViewAdapter = new ViewPagerAdapter(mItems) {
         @Override
         public View instantiateViewItem(View view, int position) {
 //            Button button = (Button) view.findViewById(R.id.btn);
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return "第" + position + "页";
         }
-    };
+    };*/
 
     public class MyAdapter extends PagerAdapter {
         private List<View> items = new ArrayList<>();

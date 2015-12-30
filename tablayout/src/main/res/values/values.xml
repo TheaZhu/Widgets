@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabLayout">
+        <attr format="boolean" name="showTabIndicator"/>
+        <attr name="tabIndicatorPosition">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+        </attr>
+        <attr format="color" name="bTabIndicatorColor"/>
+        <attr format="dimension" name="bTabIndicatorHeight"/>
+        <attr format="dimension" name="bTabContentStart"/>
+        <attr format="reference" name="bTabBackground"/>
+        <attr name="bTabMode">
+            <enum name="scrollable" value="0"/>
+            <enum name="fixed" value="1"/>
+        </attr>
+        <attr name="bTabGravity">
+            <enum name="fill" value="0"/>
+            <enum name="center" value="1"/>
+        </attr>
+        <attr format="dimension" name="bTabMinWidth"/>
+        <attr format="dimension" name="bTabMaxWidth"/>
+        <attr format="reference" name="bTabTextAppearance"/>
+        <attr format="color" name="bTabTextColor"/>
+        <attr format="color" name="bTabSelectedTextColor"/>
+        <attr format="dimension" name="bTabPaddingStart"/>
+        <attr format="dimension" name="bTabPaddingTop"/>
+        <attr format="dimension" name="bTabPaddingEnd"/>
+        <attr format="dimension" name="bTabPaddingBottom"/>
+        <attr format="dimension" name="tabPadding"/>
+    </declare-styleable>
+
+    <dimen name="tab_max_width">264dp</dimen>
+    <dimen name="tab_scrollable_min_width">72dp</dimen>
+    <dimen name="tab_text_size">14sp</dimen>
+    <dimen name="tab_text_size_2line">12sp</dimen>
+
+    <style name="TextAppearance.Tab" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">@dimen/tab_text_size</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
+    </style>
+    <style name="Base.Widget.BottomTabLayout" parent="android:Widget">
+        <item name="showTabIndicator">true</item>
+        <item name="tabIndicatorPosition">top</item>
+        <item name="bTabMaxWidth">@dimen/tab_max_width</item>
+        <item name="bTabIndicatorColor">?attr/colorAccent</item>
+        <item name="bTabIndicatorHeight">2dp</item>
+        <item name="bTabPaddingStart">12dp</item>
+        <item name="bTabPaddingEnd">12dp</item>
+        <item name="bTabBackground">?attr/selectableItemBackground</item>
+        <item name="bTabTextAppearance">@style/TextAppearance.Tab</item>
+        <item name="bTabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+    <style name="Widget.BottomTabLayout" parent="Base.Widget.BottomTabLayout">
+        <item name="bTabGravity">fill</item>
+        <item name="bTabMode">fixed</item>
+    </style>
+</resources>
