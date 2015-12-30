@@ -155,7 +155,7 @@ public class TabLayout extends HorizontalScrollView {
         addView(mTabStrip, LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabLayout,
-                defStyleAttr, R.style.Widget_BottomTabLayout);
+                defStyleAttr, R.style.Widget_TabLayout);
 
         mTabStrip.setShowTabIndicator(typedArray.getBoolean(
                 R.styleable.TabLayout_showTabIndicator, true));
@@ -166,7 +166,7 @@ public class TabLayout extends HorizontalScrollView {
         mTabStrip.setSelectedIndicatorColor(typedArray.getColor(R.styleable.TabLayout_bTabIndicatorColor, 0));
 
         mTabPaddingStart = mTabPaddingTop = mTabPaddingEnd = mTabPaddingBottom =
-                typedArray.getDimensionPixelSize(R.styleable.TabLayout_tabPadding, 0);
+                typedArray.getDimensionPixelSize(R.styleable.TabLayout_bTabPadding, 0);
         mTabPaddingStart = typedArray.getDimensionPixelSize(
                 R.styleable.TabLayout_bTabPaddingStart, mTabPaddingStart);
         mTabPaddingTop = typedArray.getDimensionPixelSize(

@@ -27,7 +27,7 @@
         <attr format="dimension" name="bTabPaddingTop"/>
         <attr format="dimension" name="bTabPaddingEnd"/>
         <attr format="dimension" name="bTabPaddingBottom"/>
-        <attr format="dimension" name="tabPadding"/>
+        <attr format="dimension" name="bTabPadding"/>
     </declare-styleable>
 
     <dimen name="tab_max_width">264dp</dimen>
@@ -40,7 +40,7 @@
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="textAllCaps">true</item>
     </style>
-    <style name="Base.Widget.BottomTabLayout" parent="android:Widget">
+    <style name="Base.Widget.TabLayout" parent="android:Widget">
         <item name="showTabIndicator">true</item>
         <item name="tabIndicatorPosition">top</item>
         <item name="bTabMaxWidth">@dimen/tab_max_width</item>
@@ -52,7 +52,7 @@
         <item name="bTabTextAppearance">@style/TextAppearance.Tab</item>
         <item name="bTabSelectedTextColor">?android:textColorPrimary</item>
     </style>
-    <style name="Widget.BottomTabLayout" parent="Base.Widget.BottomTabLayout">
+    <style name="Widget.TabLayout" parent="Base.Widget.TabLayout">
         <item name="bTabGravity">fill</item>
         <item name="bTabMode">fixed</item>
     </style>
