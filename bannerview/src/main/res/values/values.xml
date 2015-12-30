@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BannerView">
+        <attr name="enableCycle" format="boolean"/>
+        <attr name="enableAutoSwitch" format="boolean"/>
+        <attr name="markGravity" format="enum">
+            <enum name="start" value="0x03"/>
+            <enum name="center" value="0x01"/>
+            <enum name="end" value="0x05"/>
+        </attr>
+        <attr name="selectIcon" format="reference"/>
+        <attr name="normalIcon" format="reference"/>
+        <attr name="iconPadding" format="dimension"/>
+        <attr name="iconPaddingStart" format="dimension"/>
+        <attr name="iconPaddingTop" format="dimension"/>
+        <attr name="iconPaddingEnd" format="dimension"/>
+        <attr name="iconPaddingBottom" format="dimension"/>
+        <attr name="showPageTitle" format="boolean"/>
+        <attr name="pageTitleAppearance" format="reference"/>
+        <attr name="pageTitleTextColor" format="color"/>
+        <attr name="pageTitleTextSize" format="dimension"/>
+    </declare-styleable>
+
+    <dimen name="title_text_size">5sp</dimen>
+
+    <style name="Base.Widget.BannerView" parent="android:Widget">
+        <item name="markGravity">center</item>
+        <item name="iconPaddingStart">4dp</item>
+        <item name="iconPaddingTop">8dp</item>
+        <item name="iconPaddingEnd">4dp</item>
+        <item name="iconPaddingBottom">8dp</item>
+        <item name="selectIcon">@mipmap/ic_select_mark</item>
+        <item name="normalIcon">@mipmap/ic_normal_mark</item>
+        <item name="pageTitleTextSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="Widget.BannerView" parent="Base.Widget.BannerView">
+        <item name="showPageTitle">false</item>
+    </style>
+
+</resources>
