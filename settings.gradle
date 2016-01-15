@@ -1,1 +1,1 @@
-include ':app', ':tablayout', ':bannerview'
+include ':app', ':tablayout', ':bannerview', ':widgets', ':passwordlock'

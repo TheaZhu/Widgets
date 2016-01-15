@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleView">
+        <attr name="cv_color" format="color"/>
+        <attr name="cv_style" format="enum">
+            <enum name="fill" value="0"/>
+            <enum name="stroke" value="1"/>
+        </attr>
+        <attr name="cv_stroke_width" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="PatternLockView">
+        <attr name="plv_patternColor" format="color"/>
+        <attr name="plv_normalItemColor" format="color"/>
+        <attr name="plv_wrongHintColor" format="color"/>
+        <attr name="plv_itemSize" format="dimension"/>
+        <attr name="plv_itemSpace" format="dimension"/>
+    </declare-styleable>
+
+    <dimen name="big_circle_stroke_width">2dp</dimen>
+    <dimen name="pattern_line_height">2dp</dimen>
+    <dimen name="big_circle_size">64dp</dimen>
+    <dimen name="item_space">40dp</dimen>
+
+    <style name="Base.Widget.CircleView" parent="android:Widget">
+        <item name="cv_color">#fff</item>
+        <item name="cv_style">stroke</item>
+        <item name="cv_stroke_width">@dimen/big_circle_stroke_width</item>
+    </style>
+    <style name="Base.Widget.PatternLockView" parent="android:Widget">
+        <item name="plv_patternColor">#ff0099cc</item>
+        <item name="plv_normalItemColor">@android:color/white</item>
+        <item name="plv_wrongHintColor">#ffcc0000</item>
+        <item name="plv_itemSize">@dimen/big_circle_size</item>
+        <item name="plv_itemSpace">@dimen/item_space</item>
+    </style>
+
+    <style name="Widget.CircleView" parent="Base.Widget.CircleView">
+    </style>
+    <style name="Widget.PatternLockView" parent="Base.Widget.PatternLockView">
+    </style>
+</resources>
