@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#666666"
     tools:context="com.thea.widgets.MainActivity">
 
     <!--<android.thea.widgets.BannerView
@@ -20,4 +21,29 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="#B3E5FC"/>-->
+
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="按钮" />-->
+
+    <!--<android.thea.widgets.lock.CircleView
+        android:id="@+id/cv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:cv_style="fill"
+        app:cv_color="#ff0099cc" />
+    <android.thea.widgets.lock.CircleView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_toRightOf="@+id/cv"
+        app:cv_style="stroke"
+        app:cv_color="#ff0099cc" />-->
+
+    <android.thea.widgets.lock.PatternLockView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+    </android.thea.widgets.lock.PatternLockView>
 </RelativeLayout>

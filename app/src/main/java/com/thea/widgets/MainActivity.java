@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 //        ViewCompat.postInvalidateOnAnimation(cloneView);
 //        rl.addView(cloneView);
 
+
     }
 
     @Override
