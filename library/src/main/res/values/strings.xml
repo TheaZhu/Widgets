@@ -1,0 +1,7 @@
+<resources>
+    <string name="please_draw_pattern">Please draw the pattern</string>
+    <string name="please_draw_pattern_again">Please draw the pattern again</string>
+    <string name="error_short_pattern">Connect three at least, please redraw</string>
+    <string name="error_not_same">Not same with last, please redraw</string>
+    <string name="success_pattern">Apply successfully</string>
+</resources>

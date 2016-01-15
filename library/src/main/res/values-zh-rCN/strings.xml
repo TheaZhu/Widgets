@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="please_draw_pattern">请绘制解锁图案</string>
+    <string name="please_draw_pattern_again">请再次绘制解锁图案</string>
+    <string name="error_short_pattern">最少连接三个，请重新设置</string>
+    <string name="error_not_same">与上次输入不一致，请重新设置</string>
+    <string name="success_pattern">设置成功</string>
+</resources>

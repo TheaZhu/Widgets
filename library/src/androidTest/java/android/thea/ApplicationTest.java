@@ -1,4 +1,4 @@
-package android.thea.widgets;
+package android.thea;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
