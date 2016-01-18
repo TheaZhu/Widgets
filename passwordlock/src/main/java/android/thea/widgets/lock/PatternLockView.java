@@ -22,6 +22,8 @@ import java.util.List;
  * Created by Thea on 2016/1/13 0013.
  */
 public class PatternLockView extends LinearLayout{
+    private long dwellTime = 1500;
+
     private CellLayout mCellLayout;
     private Paint mPathPaint;
 
@@ -76,11 +78,17 @@ public class PatternLockView extends LinearLayout{
         mPathPaint.setColor(mPatternColor.getDefaultColor());
     }
 
+    public void setDwellTime(long dwellTime) {
+        this.dwellTime = dwellTime;
+    }
+
     public void setOnPatternListener(OnPatternListener patternListener) {
         mPatternListener = patternListener;
     }
 
     public void setWrong() {
+        for (int i : mPattern)
+            cells[i].setSmallColor(mWrongHintColor.getDefaultColor());
         mPathPaint.setColor(mWrongHintColor.getDefaultColor());
         ViewCompat.postInvalidateOnAnimation(mCellLayout);
         new Handler().postDelayed(new Runnable() {
@@ -88,7 +96,7 @@ public class PatternLockView extends LinearLayout{
             public void run() {
                 clearPattern();
             }
-        }, 2000);
+        }, dwellTime);
     }
 
     public void clearPattern() {
@@ -135,7 +143,7 @@ public class PatternLockView extends LinearLayout{
             removeAllViews();
             for (int i = 0; i < cells.length; i++) {
                 cells[i] = new Cell();
-                GridLayout.LayoutParams lp = new GridLayout.LayoutParams();
+                LayoutParams lp = new LayoutParams();
                 lp.width = mItemSize;
                 lp.height = mItemSize;
                 if (i / 3 > 0)
@@ -202,7 +210,7 @@ public class PatternLockView extends LinearLayout{
                     public void run() {
                         clearPattern();
                     }
-                }, 1500);
+                }, dwellTime);
                 if (mPatternListener != null)
                     mPatternListener.onPatternEnd(mPattern);
             }
@@ -260,6 +268,10 @@ public class PatternLockView extends LinearLayout{
                     small.setColor(getContext().getResources().getColor(android.R.color.transparent));
                 isSelected = selected;
             }
+        }
+
+        public void setSmallColor(int color) {
+            small.setColor(color);
         }
     }
 
