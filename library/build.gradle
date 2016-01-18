@@ -7,10 +7,10 @@ ext {
     bintrayName = 'android-thea-widgets'
 
     publishedGroupId = 'android.thea.widgets'
-    libraryName = 'BannerView'
-    artifact = 'bannerview'
+    libraryName = 'Lock'
+    artifact = 'lock'
 
-    libraryDescription = 'BannerView by Thea'
+    libraryDescription = 'Serveral different lock view by Thea'
 
     siteUrl = 'https://github.com/TheaZhu/Widgets'
     gitUrl = 'https://github.com/TheaZhu/Widgets.git'
@@ -66,11 +66,8 @@ android.libraryVariants.all { variant ->
     println variant.javaCompile.classpath.files
     if(variant.name == 'release') { //我们只需 release 的 javadoc
         task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-            // title = ''
-            // description = ''
             source = variant.javaCompile.source
             classpath = files(variant.javaCompile.classpath.files, project.android.getBootClasspath())
-//            classpath += configurations.javadocDeps
             options {
                 encoding "utf-8"
                 links "http://docs.oracle.com/javase/7/docs/api/"
@@ -128,20 +125,20 @@ install {
 }
 
 //upload to bintray
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//bintray {
-//    user = properties.getProperty("bintray.user")
-//    key = properties.getProperty("bintray.apikey")
-//    configurations = ['archives']
-//    pkg {
-//        repo = bintrayRepo
-//        name = bintrayName
-//        desc = libraryDescription
-//        websiteUrl = siteUrl
-//        vcsUrl = gitUrl
-//        licenses = allLicenses
-//        publish = true
-//        publicDownloadNumbers = true
-//    }
-//}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+    }
+}
